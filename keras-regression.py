@@ -3,7 +3,8 @@ import numpy as np
 import re
 from keras.optimizers import SGD
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation
+from keras.layers import Activation, Dense, Dropout
+from keras.layers.advanced_activations import LeakyReLU, PReLU
 from sklearn import linear_model
 
 df = pd.DataFrame({'temp': [11.9, 14.2, 15.2, 16.4, 17.2, 18.1, 18.5, 19.4, 22.1, 22.6, 23.4, 25.1],
@@ -16,13 +17,13 @@ model = Sequential()
 model.add(Dense(1, input_dim=1, kernel_initializer='normal'))
 #model.add(Activation('tanh'))
 #model.add(Activation('linear'))
-model.add(Activation('ReLU'))
+model.add(Activation('relu'))
 #model.add(Dense(1, kernel_initializer='glorot_uniform', activation='linear'))
 #model.add(Dense(1, kernel_initializer='normal'))
 #model.compile(loss='mse', optimizer='adam')
 #model.compile(loss='mean_squared_error', optimizer='sgd')
 model.compile(loss='mean_squared_error', optimizer=sgd)
-model.fit(df['temp'].values, df['units'].values, nb_epoch=30, batch_size=1)
+model.fit(df['temp'].values, df['units'].values, epochs=30, batch_size=1)
 
 pred = model.predict(df['temp'].values)
 pred
@@ -61,7 +62,7 @@ model = Sequential()
 model.add(Dense(1, input_dim=1))
 sgd = SGD(lr=1e-5, decay=1e-6, momentum=0, nesterov=False)
 model.compile(loss='mean_squared_error', optimizer=sgd)
-model.fit(x, y, nb_epoch=1, batch_size=1)
+model.fit(x, y, epochs=1, batch_size=1)
 
 score = model.predict(x[:10], batch_size=10)
 for layer in model.layers:
@@ -83,7 +84,7 @@ y = x*5 + np.random.rand(200)
 model = Sequential()
 model.add(Dense(1, input_dim=1, kernel_initializer='glorot_uniform', use_bias=False))
 model.compile(loss='mean_squared_error', optimizer=sgd)
-model.fit(x, y, nb_epoch=1, batch_size=10)
+model.fit(x, y, epochs=1, batch_size=10)
 
 score = model.predict(x[:10], batch_size=10)
 for layer in model.layers:
@@ -99,7 +100,7 @@ model = Sequential()
 model.add(Dense(3, input_dim=1, kernel_initializer='glorot_uniform', use_bias=False))
 model.add(Dense(1, kernel_initializer='glorot_uniform', activation='linear', use_bias=False))
 model.compile(loss='mean_squared_error', optimizer='adam')
-model.fit(x, y, nb_epoch=1, batch_size=1)
+model.fit(x, y, epochs=1, batch_size=1)
 
 score = model.predict(x[:10], batch_size=1)
 lay=[np.zeros(3), np.zeros(3)]
@@ -127,7 +128,7 @@ model = Sequential()
 model.add(Dense(2, input_dim=2, kernel_initializer='glorot_uniform', use_bias=False))
 model.add(Dense(1, kernel_initializer='glorot_uniform', activation='linear', use_bias=False))
 model.compile(loss='mean_squared_error', optimizer='adam')
-model.fit(x, y, nb_epoch=1, batch_size=1)
+model.fit(x, y, epochs=1, batch_size=1)
 
 score = model.predict(x[:10], batch_size=1)
 lay=[np.zeros(2), np.zeros(2)]
