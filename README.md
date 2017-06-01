@@ -26,3 +26,6 @@
 
 ## Classification Datasets  
 [Dataset Results](http://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results.html)  
+
+## Neural Networks  
+[A mostly complete chart of Neural Networks](http://www.asimovinstitute.org/neural-network-zoo/)  

@@ -84,7 +84,9 @@ y = x*5 + np.random.rand(200)
 model = Sequential()
 model.add(Dense(1, input_dim=1, kernel_initializer='glorot_uniform', use_bias=False))
 model.compile(loss='mean_squared_error', optimizer=sgd)
-model.fit(x, y, epochs=1, batch_size=10)
+#model.fit(x, y, epochs=1, batch_size=10)
+#with larger batch size, need more epochs
+model.fit(x, y, epochs=10, batch_size=25)
 
 score = model.predict(x[:10], batch_size=10)
 for layer in model.layers:
