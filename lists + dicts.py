@@ -49,6 +49,9 @@ for k, v in d.items():
 #lists
 l1 = [1, 3, 5, 9, 3, 2]
 sorted(l1)
+#a[start:end] # items start through the end (but the end is not included!)
+#a[start:]    # items start through the rest of the array
+#a[:end]      # items from the beginning through the end (but the end is not included!)
 
 #list comprehension
 nums = [1, 2, 3, 4]
