@@ -81,12 +81,43 @@ params = urllib.parse.urlencode({
 })
 r = requests.get("https://api.cognitive.microsoft.com/bing/v5.0/images/search?%s" % params, headers=headers)
 r.json()['webSearchUrl']
+
 len(r.json()['value'])
 r.json()['value'][0]
 r.json()['value'][99]['contentUrl']
+r.json()['value'][99]['hostPageUrl']
 
 link = r.json()['value'][0]['contentUrl']
 local_filename, headers = urllib.request.urlretrieve(link)
 f = io.imread(local_filename)
 f.shape
 f.dtype
+
+
+r = requests.get(r.json()['value'][0]['contentUrl'])
+r.history
+r.is_redirect
+r.ok
+r.headers
+r.request.headers
+for resp in r.history:
+    print(resp.url)
+
+link = r.json()['value'][99]['contentUrl']
+o = urllib.parse.urlparse(link)
+o.geturl()
+urllib.parse.urlsplit(link)
+urllib.parse.urldefrag(link)
+
+
+import re
+
+len(link)
+match_object = re.search('r=(http.+)&', link)
+redirect = match_object.group(1)
+redirect
+redirect = re.sub('%2f', '/', redirect)
+redirect = re.sub('%3a', ':', redirect)
+redirect
+
+re.sub(r'([\w\.-]+)@([\w\.-]+)', r'\1@yo-yo-dyne.com', str)
